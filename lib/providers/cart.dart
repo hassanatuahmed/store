@@ -1,38 +1,57 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
-
-class ChartItem{
+class CartItem {
   final String id;
   final String title;
   final int quantity;
   final double price;
 
-  ChartItem({@required this.id,  @required this.title,@required this.quantity, @required this.price});
+  CartItem({
+    @required this.id,
+    @required this.title,
+    @required this.quantity,
+    @required this.price,
+  });
 }
-class Chart with ChangeNotifier{
-  Map<String, ChartItem>_items;
 
-  Map<String,ChartItem>get  items{
+class Cart with ChangeNotifier {
+  Map<String, CartItem> _items = {};
+
+  Map<String, CartItem> get items {
     return {..._items};
-}
+  }
 
-void addItem(String id,double price,String title){
-    if(_items.containsKey(productId)){
-      _items.update(productId, (existingCartItem) => ChartItem(
+  int get itemCount {
+    return _items.length;
+  }
+
+  void addItem(
+      String productId,
+      double price,
+      String title,
+      ) {
+    if (_items.containsKey(productId)) {
+      // change quantity...
+      _items.update(
+        productId,
+            (existingCartItem) => CartItem(
           id: existingCartItem.id,
           title: existingCartItem.title,
+          price: existingCartItem.price,
           quantity: existingCartItem.quantity + 1,
-          price: existingCartItem.price));
-
-    }else{
-      _items.putIfAbsent(productId, ()=>ChartItem(
+        ),
+      );
+    } else {
+      _items.putIfAbsent(
+        productId,
+            () => CartItem(
           id: DateTime.now().toString(),
           title: title,
           price: price,
           quantity: 1,
-          ));
+        ),
+      );
     }
-
-}
-
+    notifyListeners();
+  }
 }
