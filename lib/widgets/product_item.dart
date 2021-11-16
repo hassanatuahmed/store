@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -54,6 +55,16 @@ class ProductItem extends StatelessWidget {
             ),
             onPressed: () {
               cart.addItem(product.id, product.price, product.title);
+              // ignore: deprecated_member_use
+              Scaffold.of(context).hideCurrentSnackBar();
+              Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Item added to Cart!",textAlign: TextAlign.center,),
+                  duration: Duration(seconds: 2),
+                  action: SnackBarAction(label: "Undo",onPressed: (){
+                    cart.removeSingleItem(product.id);
+
+                  },),));
             },
             color: Theme.of(context).accentColor,
           ),
