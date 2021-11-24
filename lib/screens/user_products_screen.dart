@@ -9,9 +9,8 @@ import './edit_product_screen.dart';
 class UserProductsScreen extends StatelessWidget {
   static const routeName = '/user-products';
 
-  Future<void> _refreshingProduct(BuildContext context) async {
+  Future<void> _refreshProducts(BuildContext context) async {
     await Provider.of<Products>(context).fetchAndSetProducts();
-
   }
 
   @override
@@ -31,8 +30,7 @@ class UserProductsScreen extends StatelessWidget {
       ),
       drawer: AppDrawer(),
       body: RefreshIndicator(
-        onRefresh: ()=>_refreshingProduct(context),
-
+        onRefresh: () => _refreshProducts(context),
         child: Padding(
           padding: EdgeInsets.all(8),
           child: ListView.builder(
