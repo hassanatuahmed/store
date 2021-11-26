@@ -46,7 +46,7 @@ class ProductItem extends StatelessWidget {
             ),
           ),
           title: Text(
-            product.title,
+            product.title ?? 'default value',
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
