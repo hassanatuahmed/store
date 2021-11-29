@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../providers/order.dart' as ord;
+import '../providers/orders.dart' as ord;
 
 class OrderItem extends StatefulWidget {
   final ord.OrderItem order;
@@ -45,25 +45,25 @@ class _OrderItemState extends State<OrderItem> {
                 children: widget.order.products
                     .map(
                       (prod) => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        prod.title,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        '${prod.quantity}x \$${prod.price}',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey,
-                        ),
-                      )
-                    ],
-                  ),
-                )
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                prod.title,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                '${prod.quantity}x \$${prod.price}',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.grey,
+                                ),
+                              )
+                            ],
+                          ),
+                    )
                     .toList(),
               ),
             )
