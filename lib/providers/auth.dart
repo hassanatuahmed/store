@@ -33,7 +33,9 @@ class Auth with ChangeNotifier {
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
 
-    final uri = Uri.parse('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAzjW8a677LrW6O95-UhYPpjkSZHei0Ag8');    try {
+    final uri = Uri.parse('https://identitytoolkit.googleapis.com/v1/$urlSegment?key=AIzaSyAzjW8a677LrW6O95-UhYPpjkSZHei0Ag8'); 
+    
+       try {
       final response = await http.post(
         uri,
         body: json.encode(
@@ -74,11 +76,11 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> signup(String email, String password) async {
-    return _authenticate(email, password, 'signupNewUser');
+    return _authenticate(email, password, 'accounts:signUp');
   }
 
   Future<void> login(String email, String password) async {
-    return _authenticate(email, password, 'verifyPassword');
+    return _authenticate(email, password, 'accounts:signInWithPassword');
   }
 
   Future<bool> tryAutoLogin() async {
