@@ -61,7 +61,7 @@ class AuthScreen extends StatelessWidget {
                         ],
                       ),
                       child: Text(
-                        'My Shop',
+                        'MyShop',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 50,
@@ -110,18 +110,26 @@ class _AuthCardState extends State<AuthCard>
   @override
   void initState() {
     super.initState();
-    _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
-
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 300,
+      ),
+    );
     _heightAnimation = Tween<Size>(
             begin: Size(double.infinity, 260), end: Size(double.infinity, 320))
         .animate(
-            CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn));
-    _heightAnimation.addListener(() => setState(() {}));
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.fastOutSlowIn,
+      ),
+    );
+    // _heightAnimation.addListener(() => setState(() {}));
   }
 
   @override
   void dispose() {
+    // TODO: implement dispose
     super.dispose();
     _controller.dispose();
   }
@@ -130,17 +138,17 @@ class _AuthCardState extends State<AuthCard>
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('An Error Occurred!'),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('Okay'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          )
-        ],
-      ),
+            title: Text('An Error Occurred!'),
+            content: Text(message),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Okay'),
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+              )
+            ],
+          ),
     );
   }
 
@@ -214,13 +222,16 @@ class _AuthCardState extends State<AuthCard>
         borderRadius: BorderRadius.circular(10.0),
       ),
       elevation: 8.0,
-      child: Container(
-        //height: _authMode == AuthMode.Signup ? 320 : 260,
-        height: _heightAnimation.value.height,
-
-        constraints: BoxConstraints(minHeight: _heightAnimation.value.height),
-        width: deviceSize.width * 0.75,
-        padding: EdgeInsets.all(16.0),
+      child: AnimatedBuilder(
+        animation: _heightAnimation,
+        builder: (ctx, ch) => Container(
+            // height: _authMode == AuthMode.Signup ? 320 : 260,
+            height: _heightAnimation.value.height,
+            constraints:
+                BoxConstraints(minHeight: _heightAnimation.value.height),
+            width: deviceSize.width * 0.75,
+            padding: EdgeInsets.all(16.0),
+            child: ch),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -229,7 +240,6 @@ class _AuthCardState extends State<AuthCard>
                 TextFormField(
                   decoration: InputDecoration(labelText: 'E-Mail'),
                   keyboardType: TextInputType.emailAddress,
-                  // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty || !value.contains('@')) {
                       return 'Invalid email!';
@@ -243,7 +253,6 @@ class _AuthCardState extends State<AuthCard>
                   decoration: InputDecoration(labelText: 'Password'),
                   obscureText: true,
                   controller: _passwordController,
-                  // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty || value.length < 5) {
                       return 'Password is too short!';
