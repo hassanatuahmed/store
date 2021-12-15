@@ -19,9 +19,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MultiProvider(
+    return  MultiProvider(
         providers: [
           ChangeNotifierProvider.value(
             value: Auth(),
@@ -46,6 +44,7 @@ class MyApp extends StatelessWidget {
         ],
         child: Consumer<Auth>(
           builder: (ctx, auth, _) => MaterialApp(
+            debugShowCheckedModeBanner: false,
                 title: 'MyShop',
                 theme: ThemeData(
                   primarySwatch: Colors.purple,
@@ -70,7 +69,7 @@ class MyApp extends StatelessWidget {
                   EditProductScreen.routeName: (ctx) => EditProductScreen(),
                 },
               ),
-        ),
+       
       ),
     );
   }
